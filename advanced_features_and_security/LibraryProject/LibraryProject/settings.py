@@ -123,3 +123,44 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# ============================================
+# SECURITY SETTINGS
+# ============================================
+
+DEBUG = False   # IMPORTANT for production
+
+ALLOWED_HOSTS = ['yourdomain.com', 'localhost', '127.0.0.1']
+
+# Prevent content sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# XSS Protection in browser
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent iframe clickjacking attacks
+X_FRAME_OPTIONS = 'DENY'
+
+# HTTPS-only cookies
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Content Security Policy (CSP)
+# Requires django-csp package
+# pip install django-csp
+INSTALLED_APPS += [
+    "csp",
+]
+
+MIDDLEWARE += [
+    "csp.middleware.CSPMiddleware",
+]
+
+# Allow content only from our domain
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com")
+CSP_FONT_SRC = ("'self'", "fonts.gstatic.com")
+CSP_SCRIPT_SRC = ("'self'",)
+

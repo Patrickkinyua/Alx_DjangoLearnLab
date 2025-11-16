@@ -45,3 +45,23 @@ def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     book.delete()
     return render(request, 'bookshelf/success.html', {'msg': 'Book deleted successfully!'})
+from django.db.models import Q
+from django.shortcuts import render
+from .models import Book
+from .forms import SearchForm
+
+def search_books(request):
+    form = SearchForm(request.GET or None)
+    books = []
+
+    if form.is_valid():
+        query = form.cleaned_data.get("query")
+        books = Book.objects.filter(
+            Q(title__icontains=query) |
+            Q(author__icontains=query)
+        )
+
+    return render(request, "bookshelf/book_list.html", {
+        "form": form,
+        "books": books,
+    })
