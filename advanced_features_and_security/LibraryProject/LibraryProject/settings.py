@@ -164,3 +164,32 @@ CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com")
 CSP_FONT_SRC = ("'self'", "fonts.gstatic.com")
 CSP_SCRIPT_SRC = ("'self'",)
 
+# -------------------------------
+# 🔐 SECURITY: HTTPS & Secure Headers
+# -------------------------------
+
+# 1. Force HTTPS redirects
+SECURE_SSL_REDIRECT = True  
+# Redirect all HTTP → HTTPS
+
+# 2. HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# 3. Secure cookies
+SESSION_COOKIE_SECURE = True   # Only sent over HTTPS
+CSRF_COOKIE_SECURE = True      # CSRF cookie only over HTTPS
+
+# 4. Protect against clickjacking
+X_FRAME_OPTIONS = "DENY"
+
+# 5. Prevent MIME-sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# 6. Enable browser XSS protection
+SECURE_BROWSER_XSS_FILTER = True
+
+# 7. TURN OFF DEBUG (for production only)
+# DEBUG = False     # You keep this False only in deployment
+
