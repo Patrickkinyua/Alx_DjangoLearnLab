@@ -190,6 +190,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 # 6. Enable browser XSS protection
 SECURE_BROWSER_XSS_FILTER = True
 
+# Tell Django it is behind a proxy (like Heroku, nginx, etc.) that handles HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # 7. TURN OFF DEBUG (for production only)
 # DEBUG = False     # You keep this False only in deployment
 
