@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics,ApiView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
@@ -49,3 +49,15 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class FollowView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, user_id):
+        request.user.following.add(user_id)
+        return Response({'status': 'followed'})
+
+    def delete(self, request, user_id):
+        request.user.following.remove(user_id)
+        return Response({'status': 'unfollowed'})

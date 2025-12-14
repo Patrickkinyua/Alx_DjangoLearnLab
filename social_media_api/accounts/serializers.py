@@ -43,4 +43,5 @@ class LoginSerializer(serializers.ModelSerializer):
         return {
             'user': user,
             'token': token.key
-         ["get_user_model().objects.create_user"]
+        }
+         
